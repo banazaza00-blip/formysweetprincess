@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You 💕</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Quicksand:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #ffc4d6 0%, #ffb3c1 25%, #ffa6b8 50%, #ff9eb3 75%, #ff94ae 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .hearts-background {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.15;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 1.5rem;
+            opacity: 0.4;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .heart:nth-child(1) {
+            left: 15%;
+            top: 15%;
+            animation-delay: 0s;
+        }
+
+        .heart:nth-child(2) {
+            left: 75%;
+            top: 25%;
+            animation-delay: 3s;
+        }
+
+        .heart:nth-child(3) {
+            left: 45%;
+            top: 55%;
+            animation-delay: 6s;
+        }
+
+        .heart:nth-child(4) {
+            left: 25%;
+            top: 75%;
+            animation-delay: 9s;
+        }
+
+        .heart:nth-child(5) {
+            left: 65%;
+            top: 85%;
+            animation-delay: 12s;
+        }
+
+        .decorations {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .decoration {
+            position: absolute;
+            font-size: 1.8rem;
+            opacity: 0.25;
+            animation: float 25s infinite ease-in-out;
+        }
+
+        .decoration:nth-child(1) { left: 8%; top: 10%; animation-delay: 1s; }
+        .decoration:nth-child(2) { right: 10%; top: 20%; animation-delay: 4s; }
+        .decoration:nth-child(3) { left: 12%; bottom: 25%; animation-delay: 7s; }
+        .decoration:nth-child(4) { right: 8%; bottom: 15%; animation-delay: 10s; }
+        .decoration:nth-child(5) { left: 50%; top: 8%; animation-delay: 2s; }
+        .decoration:nth-child(6) { left: 85%; top: 50%; animation-delay: 5s; }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-15px) rotate(5deg);
+            }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .title {
+            font-size: 2.2rem;
+            color: #d14d7a;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: #a8698f;
+            font-weight: 400;
+        }
+
+        .upload-section {
+            margin-bottom: 2rem;
+        }
+
+        .upload-box {
+            background: white;
+            border: 2px dashed #e8a8c5;
+            border-radius: 12px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .upload-box:hover {
+            border-color: #d88aab;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .upload-label {
+            cursor: pointer;
+            display: block;
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 0.8rem;
+        }
+
+        .upload-label p {
+            color: #b377a0;
+            font-size: 1rem;
+            margin: 0.4rem 0;
+            font-weight: 400;
+        }
+
+        .upload-hint {
+            font-size: 0.9rem !important;
+            color: #c499b5;
+        }
+
+        .note-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        .note-btn {
+            background: white;
+            color: #e91e63;
+            border: 2px solid #ff9eb3;
+            padding: 0.9rem 1rem;
+            font-size: 0.95rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .note-btn:hover {
+            background: #fff0f5;
+            border-color: #e91e63;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #ff9eb3;
+            border-radius: 12px;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            outline: none;
+            font-family: 'Quicksand', sans-serif;
+            background: rgba(255, 255, 255, 0.8);
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        textarea:focus {
+            border-color: #e91e63;
+            background: white;
+        }
+
+        .draft-space-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .section-title {
+            text-align: center;
+            color: #c277a8;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+            background: #fafafa;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .gallery-item img,
+        .gallery-item video {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-item .delete-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #e91e63;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .gallery-item:hover .delete-btn {
+            opacity: 1;
+        }
+
+        .content-card {
+            position: relative;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+            background: white;
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .content-type {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .content-text {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            flex-grow: 1;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+        }
+
+        .content-date {
+            color: #999;
+            font-size: 0.8rem;
+            margin-top: 0.8rem;
+            font-style: italic;
+        }
+
+        .empty-message {
+            text-align: center;
+            color: #b99faf;
+            font-size: 1rem;
+            padding: 2rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.2s ease;
+        }
+
+        .choice-screen {
+            background: rgba(255, 255, 255, 0.95);
+            margin: 12% auto;
+            padding: 3rem 2.5rem;
+            border-radius: 24px;
+            max-width: 450px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .choice-screen h2 {
+            font-family: 'Dancing Script', cursive;
+            color: #e91e63;
+            margin-bottom: 2rem;
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+
+        .choice-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .choice-btn {
+            background: linear-gradient(135deg, #ff9eb3 0%, #e91e63 100%);
+            color: white;
+            border: none;
+            padding: 1.1rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
+        }
+
+        .choice-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(233, 30, 99, 0.4);
+        }
+
+        .password-screen {
+            display: none;
+            background: rgba(255, 255, 255, 0.95);
+            margin: 12% auto;
+            padding: 3rem 2.5rem;
+            border-radius: 24px;
+            max-width: 420px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .password-screen h2 {
+            font-family: 'Dancing Script', cursive;
+            color: #e91e63;
+            margin-bottom: 0.8rem;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .password-screen p {
+            color: #c2185b;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        .password-screen input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #ff9eb3;
+            border-radius: 12px;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            outline: none;
+            text-align: center;
+            font-family: 'Quicksand', sans-serif;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .password-screen input:focus {
+            border-color: #e91e63;
+            background: white;
+        }
+
+        .btn-login {
+            background: linear-gradient(135deg, #ff9eb3 0%, #e91e63 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.05rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(233, 30, 99, 0.4);
+        }
+
+        .btn-back {
+            background: transparent;
+            color: #e91e63;
+            border: none;
+            padding: 0.7rem;
+            font-size: 0.95rem;
+            cursor: pointer;
+            margin-top: 1rem;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .btn-back:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            color: #d14d7a;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 1.8rem;
+            }
+            
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                gap: 0.8rem;
+            }
+            
+            .gallery-item img,
+            .gallery-item video {
+                height: 140px;
+            }
+
+            .choice-screen, .password-screen {
+                margin: 25% auto;
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts-background">
+        <span class="heart">💕</span>
+        <span class="heart">💖</span>
+        <span class="heart">💗</span>
+        <span class="heart">💝</span>
+        <span class="heart">💓</span>
+    </div>
+
+    <div class="decorations">
+        <span class="decoration">🌸</span>
+        <span class="decoration">🐱</span>
+        <span class="decoration">🐶</span>
+        <span class="decoration">🌺</span>
+        <span class="decoration">🐾</span>
+        <span class="decoration">🌼</span>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1 class="title">for you 💕</h1>
+            <p class="subtitle">your special space</p>
+        </header>
+
+        <div class="upload-section">
+            <div class="upload-box">
+                <input type="file" id="fileInput" accept="image/*,video/*" multiple hidden>
+                <label for="fileInput" class="upload-label">
+                    <span class="upload-icon">📷</span>
+                    <p>upload photos or videos</p>
+                </label>
+            </div>
+            <div class="note-buttons">
+                <button class="note-btn" onclick="openNoteModal()">📝 add a note</button>
+                <button class="note-btn" onclick="openLetterModal()">💌 write a letter</button>
+                <button class="note-btn" onclick="openSongModal()">🎵 add a song</button>
+            </div>
+        </div>
+
+        <div class="draft-space-section">
+            <h2 class="section-title">everything sent 💕</h2>
+            <div id="gallery" class="gallery">
+                <!-- Uploaded items will appear here -->
+            </div>
+            <p id="emptyMessage" class="empty-message">nothing here yet...</p>
+        </div>
+
+        <!-- Note/Letter/Song Modal -->
+        <div id="contentModal" class="modal" style="display: none;">
+            <div class="password-screen" id="contentForm">
+                <h2 id="contentTitle">add a note</h2>
+                <textarea id="contentText" placeholder="write something sweet..." rows="6"></textarea>
+                <button onclick="saveAndGoBack()" class="btn-login">done & go back</button>
+                <button class="btn-back" onclick="closeContentModal()">cancel</button>
+            </div>
+        </div>
+
+        <!-- Choice Modal -->
+        <div id="choiceModal" class="modal">
+            <div class="choice-screen" id="choiceScreen">
+                <h2>choose one</h2>
+                <div class="choice-buttons">
+                    <button class="choice-btn" onclick="showOwnerPassword()">leo'sss</button>
+                    <button class="choice-btn" onclick="showUploaderPassword()">for my sweet baby</button>
+                </div>
+            </div>
+            <div class="password-screen" id="ownerPasswordScreen" style="display: none;">
+                <h2>leo's space</h2>
+                <p>enter your code</p>
+                <input type="password" id="ownerPassword" placeholder="• • • • • • • •">
+                <button onclick="checkOwnerPassword()" class="btn-login">enter</button>
+                <button class="btn-back" onclick="backToChoice()">go back</button>
+                <p id="ownerErrorMessage" class="error-message"></p>
+            </div>
+            <div class="password-screen" id="uploaderPasswordScreen" style="display: none;">
+                <h2>what's the code?</h2>
+                <p>only you know this one...</p>
+                <input type="password" id="uploaderPassword" placeholder="type the secret code">
+                <button onclick="checkUploaderPassword()" class="btn-login">unlock</button>
+                <button class="btn-back" onclick="backToChoice()">go back</button>
+                <p id="uploaderErrorMessage" class="error-message"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuration
+        const OWNER_PASSWORD = 'iwkmssb';
+        const UPLOADER_PASSWORD = 'imissyouprincess';
+
+        let isOwnerMode = false;
+        let isUploaderMode = false;
+        let uploadedFiles = [];
+        let currentContentType = '';
+
+        // Show choice modal on page load
+        window.addEventListener('load', () => {
+            showChoiceModal();
+            loadFromStorage();
+        });
+
+        function showChoiceModal() {
+            document.getElementById('choiceModal').style.display = 'block';
+            document.getElementById('choiceScreen').style.display = 'block';
+            document.getElementById('ownerPasswordScreen').style.display = 'none';
+            document.getElementById('uploaderPasswordScreen').style.display = 'none';
+        }
+
+        function showOwnerPassword() {
+            document.getElementById('choiceScreen').style.display = 'none';
+            document.getElementById('ownerPasswordScreen').style.display = 'block';
+        }
+
+        function showUploaderPassword() {
+            document.getElementById('choiceScreen').style.display = 'none';
+            document.getElementById('uploaderPasswordScreen').style.display = 'block';
+        }
+
+        function backToChoice() {
+            document.getElementById('ownerPasswordScreen').style.display = 'none';
+            document.getElementById('uploaderPasswordScreen').style.display = 'none';
+            document.getElementById('choiceScreen').style.display = 'block';
+            document.getElementById('ownerErrorMessage').textContent = '';
+            document.getElementById('uploaderErrorMessage').textContent = '';
+        }
+
+        function checkOwnerPassword() {
+            const input = document.getElementById('ownerPassword').value;
+            const errorMsg = document.getElementById('ownerErrorMessage');
+            
+            if (input === OWNER_PASSWORD) {
+                isOwnerMode = true;
+                document.getElementById('choiceModal').style.display = 'none';
+                errorMsg.textContent = '';
+                renderGallery();
+            } else {
+                errorMsg.textContent = 'wrong code';
+                setTimeout(() => {
+                    errorMsg.textContent = '';
+                }, 3000);
+            }
+        }
+
+        function checkUploaderPassword() {
+            const input = document.getElementById('uploaderPassword').value;
+            const errorMsg = document.getElementById('uploaderErrorMessage');
+            
+            if (input === UPLOADER_PASSWORD) {
+                isUploaderMode = true;
+                document.getElementById('choiceModal').style.display = 'none';
+                errorMsg.textContent = '';
+                updateUIForUploader();
+            } else {
+                errorMsg.textContent = 'wrong code';
+                setTimeout(() => {
+                    errorMsg.textContent = '';
+                }, 3000);
+            }
+        }
+
+        function updateUIForUploader() {
+            document.querySelector('.draft-space-section').style.display = 'none';
+        }
+
+        // Allow Enter key to submit passwords
+        document.getElementById('ownerPassword')?.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') checkOwnerPassword();
+        });
+
+        document.getElementById('uploaderPassword')?.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') checkUploaderPassword();
+        });
+
+        // Content modal functions
+        function openNoteModal() {
+            console.log('openNoteModal called, isUploaderMode:', isUploaderMode);
+            if (!isUploaderMode) {
+                alert('please choose an option first');
+                return;
+            }
+            currentContentType = 'note';
+            document.getElementById('contentTitle').textContent = 'add a note';
+            document.getElementById('contentText').placeholder = 'write something sweet...';
+            document.getElementById('contentText').value = '';
+            document.getElementById('contentModal').style.display = 'block';
+        }
+
+        function openLetterModal() {
+            console.log('openLetterModal called, isUploaderMode:', isUploaderMode);
+            if (!isUploaderMode) {
+                alert('please choose an option first');
+                return;
+            }
+            currentContentType = 'letter';
+            document.getElementById('contentTitle').textContent = 'write a letter';
+            document.getElementById('contentText').placeholder = 'pour your heart out...';
+            document.getElementById('contentText').value = '';
+            document.getElementById('contentModal').style.display = 'block';
+        }
+
+        function openSongModal() {
+            console.log('openSongModal called, isUploaderMode:', isUploaderMode);
+            if (!isUploaderMode) {
+                alert('please choose an option first');
+                return;
+            }
+            currentContentType = 'song';
+            document.getElementById('contentTitle').textContent = 'add a song';
+            document.getElementById('contentText').placeholder = 'song name - artist';
+            document.getElementById('contentText').value = '';
+            document.getElementById('contentModal').style.display = 'block';
+        }
+
+        function closeContentModal() {
+            document.getElementById('contentModal').style.display = 'none';
+            document.getElementById('contentText').value = '';
+        }
+
+        function saveContent() {
+            const text = document.getElementById('contentText').value.trim();
+            if (!text) return;
+
+            const contentData = {
+                id: Date.now() + Math.random(),
+                type: currentContentType,
+                text: text,
+                date: new Date().toISOString()
+            };
+
+            uploadedFiles.push(contentData);
+            saveToStorage();
+            closeContentModal();
+            showUploadSuccess();
+        }
+
+        function saveAndGoBack() {
+            const text = document.getElementById('contentText').value.trim();
+            if (!text) {
+                alert('please write something first!');
+                return;
+            }
+
+            const contentData = {
+                id: Date.now() + Math.random(),
+                type: currentContentType,
+                text: text,
+                date: new Date().toISOString()
+            };
+
+            uploadedFiles.push(contentData);
+            saveToStorage();
+            
+            // Close modal and go back to start
+            closeContentModal();
+            isUploaderMode = false;
+            showChoiceModal();
+        }
+
+        // File upload handling
+        document.getElementById('fileInput')?.addEventListener('change', (e) => {
+            if (!isOwnerMode && !isUploaderMode) {
+                alert('please choose an option first');
+                showChoiceModal();
+                return;
+            }
+            
+            const files = Array.from(e.target.files);
+            
+            files.forEach(file => {
+                const reader = new FileReader();
+                
+                reader.onload = (event) => {
+                    const fileData = {
+                        id: Date.now() + Math.random(),
+                        type: file.type.startsWith('image/') ? 'image' : 'video',
+                        data: event.target.result,
+                        name: file.name,
+                        date: new Date().toISOString()
+                    };
+                    
+                    uploadedFiles.push(fileData);
+                    saveToStorage();
+                    renderGallery();
+                    
+                    if (isUploaderMode) {
+                        showUploadSuccess();
+                    }
+                };
+                
+                reader.readAsDataURL(file);
+            });
+            
+            e.target.value = '';
+        });
+
+        function showUploadSuccess() {
+            const uploadBox = document.querySelector('.upload-box');
+            uploadBox.style.borderColor = '#b8e6b8';
+            uploadBox.style.background = '#f0faf0';
+            setTimeout(() => {
+                uploadBox.style.borderColor = '';
+                uploadBox.style.background = 'white';
+            }, 1000);
+        }
+
+        function renderGallery() {
+            if (!isOwnerMode) return;
+            
+            const gallery = document.getElementById('gallery');
+            const emptyMessage = document.getElementById('emptyMessage');
+            
+            if (uploadedFiles.length === 0) {
+                gallery.innerHTML = '';
+                emptyMessage.style.display = 'block';
+                return;
+            }
+            
+            emptyMessage.style.display = 'none';
+            
+            gallery.innerHTML = uploadedFiles.map(item => {
+                if (item.type === 'image' || item.type === 'video') {
+                    return `
+                        <div class="gallery-item">
+                            ${item.type === 'image' 
+                                ? `<img src="${item.data}" alt="${item.name}">` 
+                                : `<video src="${item.data}" controls></video>`
+                            }
+                            <button class="delete-btn" onclick="deleteFile(${item.id})">🗑️</button>
+                        </div>
+                    `;
+                } else {
+                    const icons = {
+                        note: '📝',
+                        letter: '💌',
+                        song: '🎵'
+                    };
+                    const date = new Date(item.date).toLocaleDateString();
+                    return `
+                        <div class="content-card">
+                            <div class="content-type">${icons[item.type]}</div>
+                            <div class="content-text">${item.text}</div>
+                            <div class="content-date">${date}</div>
+                            <button class="delete-btn" onclick="deleteFile(${item.id})">🗑️</button>
+                        </div>
+                    `;
+                }
+            }).join('');
+        }
+
+        function deleteFile(id) {
+            if (!isOwnerMode) return;
+            
+            if (confirm('delete this?')) {
+                uploadedFiles = uploadedFiles.filter(file => file.id !== id);
+                saveToStorage();
+                renderGallery();
+            }
+        }
+
+        function saveToStorage() {
+            try {
+                localStorage.setItem('uploadedFiles', JSON.stringify(uploadedFiles));
+            } catch (e) {
+                console.error('Storage limit exceeded. Consider clearing old files.');
+                alert('Storage limit reached! Please delete some files to add more. 💕');
+            }
+        }
+
+        function loadFromStorage() {
+            try {
+                const stored = localStorage.getItem('uploadedFiles');
+                if (stored) {
+                    uploadedFiles = JSON.parse(stored);
+                }
+            } catch (e) {
+                console.error('Error loading files from storage');
+            }
+        }
+    </script>
+</body>
+</html>
